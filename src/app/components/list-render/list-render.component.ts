@@ -9,14 +9,11 @@ import { ListService } from 'src/app/list.service';//Import the service
   styleUrls: ['./list-render.component.css']
 })
 export class ListRenderComponent implements OnInit {
-  animals: Animal[]=[
-    { name: 'Turca', type: 'Dog', age:5 },
-    { name: 'Tom', type: 'Cat', age:6 },
-    { name: 'Frida', type: 'Dog', age:7 },
-    { name: 'Bob', type: 'Horse', age:8 }
-  ]
+  animals: Animal[]=[]
   animalDetails:string=""
-  constructor(private listService: ListService) { }
+  constructor(private listService: ListService) {
+    this.getAnimals()
+  }
 
   ngOnInit(): void {
   }
@@ -27,5 +24,8 @@ export class ListRenderComponent implements OnInit {
 
   removeAnimal(animal: Animal){
     this.animals=this.listService.remove(this.animals, animal)//Call the service
+  }
+  getAnimals():void{
+    this.listService.getAll().subscribe((animals)=> this.animals=animals)
   }
 }
